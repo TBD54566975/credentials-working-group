@@ -27,6 +27,17 @@ Becoming a member is informal: all you need to do is engage. This is an open gro
 
 Meetings will be held 2x a month, on Tuesdays at 9 AM PDT. For specific information about meetings visit the "Events" section of our Discord, and check out the forums which will have a post before each meeting.
 
+## Resources
+
+- [TBD Forums](https://forums.tbd.website/c/self-sovereign-identity-users/credentials-working-group/6)
+- [TBD Discord](https://discord.gg/tbd)
+- [The SSI SDK](https://github.com/TBD54566975/ssi-sdk)
+- [The SSI Service](https://github.com/TBD54566975/ssi-service)
+- [The Decentralized Identity Foundation](http://identity.foundation/)
+	- [Claims & Credentials Working Group](https://identity.foundation/working-groups/claims-credentials.html), [GitHub](https://github.com/decentralized-identity/claims-credentials)
+	- [Trust Establishmentn Work Item](https://github.com/decentralized-identity/trust-establishment)
+	- [Schema Directory Work Item](https://github.com/decentralized-identity/schema-directory)
+- [The W3C Credentials Community Group](https://www.w3.org/community/credentials/)
 
 ## Project Resources
 
