@@ -10,18 +10,17 @@ The working group will first be focused on use cases around [tbDEX](https://tbde
 To help organize the group, we have two main methods of communication:
 1. [#credentials-wg](https://discord.gg/fZxDcCFxE6) on the TBD Discord 
 
-We will be using this for real-time chat, voice chat, and group meetings.
+Used for real-time chat, voice chat, and group meetings.
 
 2. The [Credentials Working Group category](https://forums.tbd.website/c/self-sovereign-identity-users/credentials-working-group/6) on the TBD user forums. 
 
-We will be using this for longer-form discussion, ideation, and organization of work items. The forum is broader than this working group and facilitates discussion for all things Web5/TBD.
+Used this for longer-form discussion, ideation, and organization of work items. The forum is broader than this working group and facilitates discussion for all things Web5/TBD.
 
 3. [This GitHub Repo](https://github.com/TBD54566975/credentials-working-group)!
 
-We will use this repo for housing meeting notes, diagrams, documentation, and some technical content (such as Verifiable Credentials Vocabularies).
+Used for housing meeting notes, diagrams, documentation, and some technical content (such as Verifiable Credentials Vocabularies).
 
-
-Software-wise, we’ll primarily be focusing on utilizing the [SSI SDK](https://github.com/TBD54566975/ssi-sdk) and [SSI Service](https://github.com/TBD54566975/ssi-service). 
+Software-wise, we’ll primarily be focusing on utilizing the [SSI SDK](https://github.com/TBD54566975/ssi-sdk) and [SSI Service](https://github.com/TBD54566975/ssi-service) projects.
 
 ## Meetings
 Becoming a member is informal: all you need to do is engage. This is an open group, and we encourage you to share it with your colleagues across the industry. Open source, and open standards are only strengthened by broad participation. We look forward to seeing what we can build together.
