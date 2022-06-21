@@ -1,29 +1,43 @@
-# $PROJECT_NAME README
-
-Congrats, project leads! You got a new project to grow!
-
-This stub is meant to help you form a strong community around your work. It's yours to adapt, and may 
-diverge from this initial structure. Just keep the files seeded in this repo, and the rest is yours to evolve! 
+# Credentials Working Group
 
 ## Introduction
 
-Orient users to the project here. This is a good place to start with an assumption
-that the user knows very little - so start with the Big Picture and show how this
-project fits into it. It may be good to reference/link the broader architecture in the
-`collaboration` repo or the developer site here.
+Welcome! As a part of TBD’s Open Source effort, specifically around Verifiable Credentials, we are kicking off our first working group around all things credentials. We’ve had an influx of interest from both individuals and organizations that have read the tbDEX whitepaper and want to get involved. Primarily (and fittingly), the interest has been from those in the financial industry, considering how they can adapt to the emergent world of [Decentralized Identifiers](https://www.w3.org/TR/did-core/) and [Verifiable Credentials](https://www.w3.org/TR/vc-data-model/). Our goal is to bring all interested parties together to document use cases and requirements, create diagrams, propose and influence standards in existing standards organizations, and work towards building real-world, standards-based, interoperable software.
 
-Then maybe a dive into what this project does.
+The working group will first be focused on use cases around [tbDEX](https://tbdex.io/whitepaper.pdf): any credentials that may be used in a decentralized exchange interaction such as those around Know Your Customer (KYC)/Know Your Business KYB), Identity Verification (IDV), and risk scoring. We’ll be building off of existing standards work in the W3C and DIF, and others, as well as influencing nascent standards initiatives such as the recently kicked off [Trust Establishment](https://github.com/decentralized-identity/trust-establishment) and [Schema Directory](https://github.com/decentralized-identity/schema-directory) work items in the [DIF Claims and Credentials Working Group](https://identity.foundation/working-groups/claims-credentials.html). If your organization is not a member of [the DIF](http://identity.foundation/), we recommend you join, and we’re happy to help with the process—just reach out!
 
-Diagrams and other visuals are helpful here. Perhaps code snippets showing usage.
+## Organizaiton & Communication
+To help organize the group, we have two main methods of communication:
+1. [#credentials-wg](https://discord.gg/fZxDcCFxE6) on the TBD Discord 
 
-Project leads should complete, alongside this `README`:
-* [CODEOWNERS](./CODEOWNERS) - set project lead(s)
-* [CONTRIBUTING.md](./CONTRIBUTING.md) - Fill out how to: install prereqs, build, test, run, access CI, chat, discuss, file issues
+Used for real-time chat, voice chat, and group meetings.
 
-The other files in this template repo may be used as-is:
-* [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)
-* [GOVERNANCE.md](./GOVERNANCE.md)
-* [LICENSE](./LICENSE)
+2. The [Credentials Working Group category](https://forums.tbd.website/c/self-sovereign-identity-users/credentials-working-group/6) on the TBD user forums. 
+
+Used this for longer-form discussion, ideation, and organization of work items. The forum is broader than this working group and facilitates discussion for all things Web5/TBD.
+
+3. [This GitHub Repo](https://github.com/TBD54566975/credentials-working-group)!
+
+Used for housing meeting notes, diagrams, documentation, and some technical content (such as Verifiable Credentials Vocabularies).
+
+Software-wise, we’ll primarily be focusing on utilizing the [SSI SDK](https://github.com/TBD54566975/ssi-sdk) and [SSI Service](https://github.com/TBD54566975/ssi-service) projects.
+
+## Meetings
+Becoming a member is informal: all you need to do is engage. This is an open group, and we encourage you to share it with your colleagues across the industry. Open source, and open standards are only strengthened by broad participation. We look forward to seeing what we can build together.
+
+Meetings will be held 2x a month, on Tuesdays at 9 AM PDT. For specific information about meetings visit the "Events" section of our Discord, and check out the forums which will have a post before each meeting.
+
+## Resources
+
+- [TBD Forums](https://forums.tbd.website/c/self-sovereign-identity-users/credentials-working-group/6)
+- [TBD Discord](https://discord.gg/tbd)
+- [The SSI SDK](https://github.com/TBD54566975/ssi-sdk)
+- [The SSI Service](https://github.com/TBD54566975/ssi-service)
+- [The Decentralized Identity Foundation](http://identity.foundation/)
+	- [Claims & Credentials Working Group](https://identity.foundation/working-groups/claims-credentials.html), [GitHub](https://github.com/decentralized-identity/claims-credentials)
+	- [Trust Establishmentn Work Item](https://github.com/decentralized-identity/trust-establishment)
+	- [Schema Directory Work Item](https://github.com/decentralized-identity/schema-directory)
+- [The W3C Credentials Community Group](https://www.w3.org/community/credentials/)
 
 ## Project Resources
 
