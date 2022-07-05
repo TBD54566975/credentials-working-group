@@ -16,4 +16,4 @@ _What is the output of the work item? It could be documentation, diagrams, contr
 
 # Current Work Items
 
-- [Work Item #1: KYC Credentials](work-item-1-kyc-credentials.md)
+- [Work Item #1: KYC Credentials](kyc-vcs/work-item-1-kyc-credentials.md)
