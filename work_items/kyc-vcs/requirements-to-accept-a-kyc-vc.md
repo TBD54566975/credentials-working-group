@@ -1,0 +1,538 @@
+# Verifiable Credentials #1 
+
+
+### Requirements to Accept a VC
+
+---
+
+
+## Background
+
+Financial institutions (both MSBs and traditional Banks) are required to collect personally identifiable information and verify the identity of their customers before allowing the customer to transact. In some unique cases, customer verification is not required for transactions under a certain dollar threshold, but this does not specifically address those use cases. We also highly recommend companies consider selective disclosure or zero-knowledge proof techniques to further enhance user privacy.
+
+
+## Purpose
+
+This deliverable attempts to define the **_Vocabulary_** for KYC Verifiable Credentials and tackle some of the important open questions regarding the substance, acceptance criteria, trust framework and use cases for KYC Verifiable Credentials.
+
+
+## Definitions
+
+**<span style="text-decoration:underline;">Verifiable Credential:</span>** A tamper-evident digital presentation of personal information that needs to be proved. For the purpose of this document we will focus on KYC credentials that mirror physical identity documents and proofs.
+
+**<span style="text-decoration:underline;">Verifiers:</span>** Financial Institutions and other types of companies willing to accept a credential.
+
+**<span style="text-decoration:underline;">Issuers:</span>** Any entity with the qualifications to issue a credential. This can include financial institutions, identity verification vendors, AML compliance vendors and others.
+
+**<span style="text-decoration:underline;">Trust List:</span>** Verifiers can maintain a Trust List of Issuers who they trust, either based on certain public information (regulated entities for example) or who they have validated are qualified to issue certain verifiable credentials.
+
+
+## Acceptance Criteria
+
+In order for DIDs and VCs to be adopted by financial institutions, they need to comply with all applicable laws and regulations (specifically BSA AML/CIP/KYC requirements). Therefore, the credential must:
+
+
+
+1. **Standard DID Vocabulary:** The credential must include certain basic information to be accepted and recognized by the verifier, including information about the issuer, issuance date and time stamp, the DID reference, the schema backing the credential, and the digital signature (or proof). It will also contain the **revocation controls** and **terms of use**, which we will address in a future work item due to complexity.
+
+2. **CIP/KYC Vocabulary:** Include information that is required to be **_collected and verified_** to comply with applicable financial regulations. _In the USA, regulations require the collection of the full name, date of birth, residential address and SSN (for individuals). In Europe and the UK that also includes Nationality, Proof of Address and certain enhanced due diligence information such as employment information and purpose of account._
+
+3. **Identity Verification Evidence:** Provide **_evidence_** of identity verification including: the method for verifying identity (i.e. documentary vs. non documentary), the source of the verification (i.e. ID type or public records), information about what was used to verify (i.e. name matched DOB and SSN), any information that was unmatched (i.e. address did not match), and the name of the third party that performed the verification. 
+
+    In addition, if the verification method is “documentary”, then the VC must include information about the document used to verify (usually a photo ID) such as: the document type, issuing state and country, and the document expiry date.
+
+4. **Address Verification Evidence:** Financial transactions in the UK, Europe and other countries outside the USA requires a verification of an address in addition to identity verification (above). Typical documents used to verify an address are a utility bill, bank statement, or telecom account statement. Address verification can also be used to verify an account, such as a bank account or exchange account and can be used for the purpose of validating source of funds, a common enhanced due diligence requirement globally.
+
+5. **Sanctions Screening:** Certify that the individual is not from a sanctioned country or on the appropriate sanctions lists (note that each country has its own sanctions lists, it is not feasible to compare the customer against ALL global lists, so these VCs may need to be regional).
+
+    For this certification to be valid/accepted it must provide information about the lists that were checked against, the date the check was performed, the third party that performed the checks and additional information about any matches. 
+
+
+    **_Note: Because of the complexity of representing sanctions checks as verifiable credentials, we have decided to address this in a separate work item._**
+
+
+
+## KYC VC Examples
+
+This section provides examples of the data collected for each acceptance criteria listed above and outlines the vocabulary for each data type.
+
+
+
+### 1. Standard DID Vocabulary
+
+A financial institution (or Verifier) asks for your KYC Credential.  You respond with:
+
+**<span style="text-decoration:underline;">Example 1: Verifiable Credential & Proof</span>**
+
+
+```
+"Type": "VerifiableCredential"
+"Issuer": "did:example:BlockInc",
+"IssanceDate" "2010-01-01T00:00:00Z",
+"CredentialSubject": { 
+"Id": "did:example:1a2b3c4d5e6f7g",
+{...}
+}
+"Proof": {...}
+```
+
+
+The Verifier can use the Issuer information to either:
+
+
+
+1. Cross reference the Issuer DID against an established Trust List that they maintain,
+2. Discover information through the Issuer’s DID or DID website, or
+3. Decide to trust the VC based on the contents and signature proof meeting their requirements.
+
+In order to discover more information about the Issuer, the Verifier can request information about the Issuers DID. The DID Document for **“did:example:BlockInc”**. Provides the Issuer’s public key, used to verify the signature on the KYC VC.
+
+**<span style="text-decoration:underline;">Example 2: Resolve Issuer DID</span>**
+
+
+```
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/suites/ed25519-2020/v1"
+  ]
+  "id": "did:example:BlockInc",
+  "authentication": [{
+    "id": "did:example:BlockInc#keys-1",
+    "type": "Ed25519VerificationKey2020",
+    "controller": "did:example:BlockInc",
+    "publicKeyMultibase": "zH3C2AVvLMv6gmMNam3uVAjZpfkcJCwDwnZn6z3wXmqPV"
+  }],
+ "serviceEndpoint" : {
+   "id": "did:example:BlockInc#dwn-1" 
+"type": "DWN",
+"serviceEndpoint": "https://example.com/my-dwn" 
+ }
+}
+```
+
+
+
+
+### 2. CIP/KYC Vocabulary
+
+The KYC Credential for a global customer will include some or all of the following data fields:
+
+
+<table>
+  <tr>
+   <td><strong>Vocabulary</strong>
+   </td>
+   <td><strong>Field Description & References</strong>
+   </td>
+  </tr>
+  <tr>
+   <td>Family Name 
+   </td>
+   <td>Refer to <a href="https://schema.org/Person">Person Schema</a>
+<p>
+In the USA, the Family Name is the <strong>Last Name</strong> of a Person
+   </td>
+  </tr>
+  <tr>
+   <td>Given Name
+   </td>
+   <td>Refer to <a href="https://schema.org/Person">Person Schema</a>
+<p>
+In the USA, the Given Name is the <strong>First Name</strong> of a Person
+   </td>
+  </tr>
+  <tr>
+   <td>Additional Name
+   </td>
+   <td>Refer to <a href="https://schema.org/Person">Person Schema</a>
+<p>
+This can be used to include <strong>Middle Name</strong> or left blank or n/a
+   </td>
+  </tr>
+  <tr>
+   <td>Birth Date (DOB)
+   </td>
+   <td>Universal Date Format (<a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>): YYYY/MM/DD
+   </td>
+  </tr>
+  <tr>
+   <td>Postal Address 
+   </td>
+   <td>Refer to <a href="https://schema.org/PostalAddress">Postal Address Schema</a>
+<p>
+Data fields should include: 
+<p>
+“addressCountry” - Country using the <a href="https://www.iso.org/iso-3166-country-codes.html">ISO</a> 3 Alpha Character country abbreviation
+<p>
+“addressLocality” - City or locality within a region
+<p>
+“addressRegion” - County, Province or State (US)
+<p>
+“postOfficeBoxNumber” - not a valid address for financial transactions in the US
+<p>
+“postalCode” - Zip Code in the USA
+<p>
+“streetAddress” - House number and Street name for example “601 Church Street”
+   </td>
+  </tr>
+  <tr>
+   <td>TaxID
+   </td>
+   <td>Refer to <a href="https://schema.org/Person">Person Schema</a>
+<p>
+“123-45-6789” This can include an SSN or ITIN (in the US), National ID number (in Canada), National ID Card number, or other government issued identity number. 
+   </td>
+  </tr>
+  <tr>
+   <td>Nationality
+   </td>
+   <td>Refer to <a href="https://schema.org/Person">Person Schema</a>
+<p>
+Nationality of the Person, Country using the <a href="https://www.iso.org/iso-3166-country-codes.html">ISO</a> 3 Alpha Character country abbreviation
+   </td>
+  </tr>
+  <tr>
+   <td>Gender
+   </td>
+   <td>This is not typically required in certain countries due to gender descrimination (UDAAP for example), but is required in Asia and other parts of the world. 
+<p>
+<strong>Note:</strong> While https://schema.org/Male and https://schema.org/Female may be used, text strings are also acceptable for people who do not identify as a binary gender.
+   </td>
+  </tr>
+  <tr>
+   <td>Account Type
+   </td>
+   <td>We may need this field to determine the type of account being opened or n/a if no account is being opened and this is a one-off transaction.
+<p>
+We can use Schema.org references for <a href="https://schema.org/docs/financial.html">financial extension hierarchy</a> under FinancialProduct Service, but this does not cover all different account types possible.
+   </td>
+  </tr>
+  <tr>
+   <td>Purpose of Account
+   </td>
+   <td>Standardize possible responses to include:
+<ul>
+
+<li>deposits,
+
+<li>checking,
+
+<li>savings,
+
+<li>investing,
+
+<li>sending/receiving money,
+
+<li>currency conversion,
+
+<li>cryptocurrency trading,
+</li>
+</ul>
+   </td>
+  </tr>
+  <tr>
+   <td>Occupation - occupationalCategory
+   </td>
+   <td>Suggest we use the <a href="https://isco-ilo.netlify.app/en/isco-08/">ISCO-08</a> International Standard Classification of Occupations either at the sun-major group or minor group level to reduce the possible values
+<p>
+<span style="text-decoration:underline;">Example of ISCO-08:</span>
+<p>
+
+
+<img src="assets/isco-08-example.png" alt="ISCO 08 Example" title="ISCO 08 Example">
+
+   </td>
+  </tr>
+  <tr>
+   <td>Employer Name (“worskfor” in Schema.org)
+   </td>
+   <td>Free text field, note this is only required by certain financial institutions and can be hard to validate.
+   </td>
+  </tr>
+  <tr>
+   <td>Source of Funds/Wealth
+   </td>
+   <td>Standardize possible responses include:
+<ul>
+
+<li>employment,
+
+<li>self-employment, 
+
+<li>investment, 
+
+<li>savings, 
+
+<li>retirement, 
+
+<li>gift/inheritance, or 
+
+<li>other (which must come with an explanation in free text)
+</li>
+</ul>
+   </td>
+  </tr>
+  <tr>
+   <td>Account Activity
+   </td>
+   <td>(free text) Expected transaction amount or volume information is typically asked to assess risk and comply with regulatory obligations.
+   </td>
+  </tr>
+</table>
+
+
+Note, that the contents of this type of credential relies on existing and accepted global data schema’s to enhance consistency and interoperability.
+
+To obtain the information contained within the KYC Verifiable Credential, the Financial Institution (or Verifier) will specify the contents of the Verifiable Credential.
+
+The response is:
+
+**<span style="text-decoration:underline;">Example 2: KYC VC (USA):</span>**
+
+```
+"CredentialType": "KYC"
+"familyName": "Doe",
+"givenName": "Jane",
+"additionalName": "n/a",
+"birthDate": "1999/12/25",
+"postalAddress": {
+"addressCountry": "USA",
+"addressLocality": "Anytown"
+"addressRegion": "State",
+"postOfficeBoxNumber": "n/a",
+"postalCode": "12345",
+"streetAddress": "31 South Main Street",
+"taxID": "123-45-6789"
+```
+
+
+**<span style="text-decoration:underline;">Example 3: KYC VC (EU/UK):</span>**
+
+
+```
+"CredentialType": "KYC"
+"familyName": "Biche",
+"givenName": "Jean",
+"additionalName": "n/a",
+"birthDate": "1999/12/25",
+"postalAddress": {
+"addressCountry": "FRA",
+"addressLocality": "La Ville"
+"addressRegion": "Ile-de-France",
+"postOfficeBoxNumber": "n/a",
+"postalCode": "75000",
+"streetAddress": "31 rue Perdu",
+}
+"nationality": "FRA"
+"accountType": "DepositAccount"
+"purposeOfAccount": "Deposits"
+"occupationalCategory": "3123 Construction Supervisors"
+"sourceOfFunds": "employment"
+```
+
+
+**Note:** EU and UK AML regulations require both a Photo ID and address verification, so to meet compliance requirements in these jurisdictions the verifiable credential will require the additional evidence outlined in Section 3 and 4 below to be considered valid.
+
+
+### 3. Identity Verification Evidence Vocabulary
+
+In order for the KYC Verifiable Credential to be accepted by most financial institutions, it needs to be verified using a standard method that is recognized by others. The following table outlines the information that should be included in order to provide evidence of identity verification (regardless of whether the documentary or non-documentary method is used). It is noted that the verification requirements differ by country and are more prescriptive in certain countries. Some countries may also require more than one method of verification (such as in Canada).
+
+
+<table>
+  <tr>
+   <td><strong>Vocabulary</strong>
+   </td>
+   <td><strong>Field Description & References</strong>
+   </td>
+  </tr>
+  <tr>
+   <td>Method:
+   </td>
+   <td>Documentary, non-documentary
+   </td>
+  </tr>
+  <tr>
+   <td>Source:
+   </td>
+   <td>Photo ID, public records, official document, other document (<em>we need to determine the full list of acceptable documents</em>), note that this field is a high level description of the source, the document type is included below
+   </td>
+  </tr>
+  <tr>
+   <td>Match Result:
+   </td>
+   <td>Full match (all data elements matched), partial match (3 out of 4 elements matched), match with issues (2 out of 4 elements matched), unmatched <em>(the issuer should not issue a VC based on an unmatched result)</em>
+   </td>
+  </tr>
+  <tr>
+   <td>Unmatched Data:
+   </td>
+   <td>Name, date of birth, address, TaxID or ID Number <em>(could be one or many)</em>. It is important to provide information on unmatched data, this does not make the VC invalid, but rather demonstrates the quality of the verification process
+   </td>
+  </tr>
+  <tr>
+   <td>Verifier Name:
+   </td>
+   <td>Free text (examples Jumio, Onfido, Prove, etc.)
+   </td>
+  </tr>
+  <tr>
+   <td>Document Type:
+   </td>
+   <td>Drivers license, passport, permanent resident card, voter registration card, government ID, military ID, state ID card, n/a (for non documentary)
+   </td>
+  </tr>
+  <tr>
+   <td>Issuing State/Province:
+   </td>
+   <td>Full name of state or province or n/a if not applicable
+   </td>
+  </tr>
+  <tr>
+   <td>Issuing Country:
+   </td>
+   <td>Use the <a href="https://www.iso.org/iso-3166-country-codes.html">ISO</a> country abbreviation or full country name or n/a
+   </td>
+  </tr>
+  <tr>
+   <td>ID Number:
+   </td>
+   <td>Document ID number, format will depend on ID type and country
+   </td>
+  </tr>
+  <tr>
+   <td>Expiry Date:
+   </td>
+   <td>Universal Date Format (<a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>): YYYY/MM/DD (do we want to allow n/a?). Photo ID documents should usually have an expiry, but other documents such as birth certificates, utility bills, etc. will not)
+   </td>
+  </tr>
+</table>
+
+
+**Consideration 1:** It is common for companies to compare KYC information to the information on an ID, this includes full name, date of birth and address. Therefore, we may want to consider how to replicate this process with verifiable credentials. To some extent this will be covered in the “Match Result”.
+
+**Consideration 2:** Companies also store a copy of the photo ID and/or the personal data from the ID, through OCR technology, at field level. This typically includes: Full name, Date of Birth, ID Type, ID Number, ID Country and address (if applicable). Therefore, we may want to consider including the personal information on the identity document within the verifiable credential evidence. 
+
+To obtain the evidence that the KYC Verifiable Credential was verified, the Financial Institution (or Verifier) will specify the Verification Evidence.
+
+The response is:
+
+**<span style="text-decoration:underline;">Example 4: KYC VC Evidence </span>**
+
+
+```
+"Method": "documentary",
+"Source": "photo ID",
+"Match" Result: "partial match",
+"UnmatchedData": "SSN",
+"VerifierName": "Jumio",
+"DocumentType": "passport"
+"IssuingState": "n/a",
+"IssuingCountry": "USA",
+"IDNumber": "123456798",
+"ExpiryDate": "2026/12/25"
+"credentialSubject": "id": "did:example:1a2b3c4d5e6f7g
+```
+
+
+
+
+4. Address Verification Evidence
+
+Address verification is a regulatory requirement to onboard a customer in certain jurisdictions including in the UK, Europe and parts of Asia. This same type of credential can also be used to demonstrate proof of “Purpose Of Account”, if a bank or other financial account statement is used to validate a physical address.
+
+The Address or Account Verification Evidence will be requested by a Financial Institution when:
+
+
+
+1. Regulatory requirements dictate that address verification is required to onboard a customer based on risk; or
+2. Enhanced Due Diligence is performed (due to the risk associated with an account or customer) and proof of the purpose account or source of funds is required (either via a regulatory requirement or internal policy).
+
+<table>
+  <tr>
+   <td>
+<strong>Vocabulary</strong>
+   </td>
+   <td><strong>Field Description & References</strong>
+   </td>
+  </tr>
+  <tr>
+   <td>Statement Type:
+   </td>
+   <td>Bank statement, brokerage statement, utility bill, phone bill, trading account statement, custodial account, other (with free text field to describe the document)
+   </td>
+  </tr>
+  <tr>
+   <td>Statement Date:
+   </td>
+   <td>Universal Date Format (<a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>): YYYY/MM/DD. The document is usually only valid if issued within the last 3 or 6 months (depends on the requirements).
+   </td>
+  </tr>
+  <tr>
+   <td>Company Name:
+   </td>
+   <td>Free text field to provide the name of the company that issued the statement. For example: “AT&T”, “HSBC Bank”, “Coinbase”, etc.
+   </td>
+  </tr>
+  <tr>
+   <td>Account Number:
+   </td>
+   <td>Allow for multiple formats and n/a or blank if not applicable
+   </td>
+  </tr>
+  <tr>
+   <td>Account Balance:
+   </td>
+   <td>This is only applicable for certain types of accounts (typically financial accounts) and is important when verifying source of funds or purpose of account information. Need to include local currency type, for example “USD”, “RMB”, or “MXN”.
+   </td>
+  </tr>
+  <tr>
+   <td>Customer Name:
+   </td>
+   <td>Full name of the customer on the account, can include both names when it is a joint account. This is necessary to confirm the statement is for the individual named in the KYC credential.
+   </td>
+  </tr>
+  <tr>
+   <td>Customer Address:
+   </td>
+   <td>Option to use a single data field to document the full address (such as “postalAddress”) or break out at field level per the <a href="https://schema.org/PostalAddress">Postal Address Schema</a>. This is necessary to compare to the KYC address.
+   </td>
+  </tr>
+  <tr>
+   <td>Verifier Name:
+   </td>
+   <td>Plaid, Sophtron, etc.
+   </td>
+  </tr>
+</table>
+
+
+**Consideration 3:** Regulatory requirements and compliance controls may require the collection and storage of the statement, therefore it is important to consider how to comply with this requirement with verifiable credentials. For example, can or should we embed an image of the statement in the credential?
+
+To obtain the evidence that the KYC Verifiable Credential was verified, the Financial Institution (or Verifier) will  specify the Address/Account Verification Evidence.
+
+The response is:
+
+**<span style="text-decoration:underline;">Example 5: KYC VC Address/Account Verification</span>**
+
+
+```
+"statementType": "bank statement",
+"statementDate": "2022/05/30",
+"companyName": "Bank of America US",
+"accountNumber": "123456789",
+"accountBalance": "5,302", "USD",
+"customerName": "Jane S. Doe", "John P. Doe",
+"customerAddress": "31 South Main Street, Anytown, State, 12345",
+"verifierName": "Sophtron"
+```
+
+
+This credential assumes that we use online verification tools and vendors to produce address and account information to meet this regulatory compliance requirement. Please note that currently, many financial institutions require the user to upload a copy of a physical statement to comply with this requirement. Online account statements may provide a better user experience and more accurate and up-to-date account level information.
+
+
+
+### 5. Sanctions Screening Vocabulary
+
+Sanctions screening requirements & vocabulary will be provided in a follow-up document.
