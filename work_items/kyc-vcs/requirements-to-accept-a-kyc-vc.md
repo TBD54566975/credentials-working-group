@@ -471,6 +471,11 @@ The Address or Account Verification Evidence will be requested by a Financial In
    <td>This is only applicable for certain types of accounts (typically financial accounts) and is important when verifying source of funds or purpose of account information. Need to include local currency type, for example “USD”, “RMB”, or “MXN”.
    </td>
   </tr>
+    <tr>
+   <td>Account Status</td>
+   <td>The account status is important to determine if an account is valid and can be used. The account status types can include: <em>active</em>, <em>blocked</em>, <em>inactive</em>, <em>bank account frozen</em>, <em>non-payment bank account</em>, etc. There are standard ACH return codes which can also be used here (these are typical responses to transaction requests) but would not be applicable for open/active accounts. Also, given the different account types possible, mapping to standardized responses would be beneficial.
+   </td>
+  </tr>
   <tr>
    <td>Customer Name</td>
    <td>Full name of the customer on the account, can include both names when it is a joint account. This is necessary to confirm the statement is for the individual named in the KYC credential.
