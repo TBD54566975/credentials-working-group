@@ -6,7 +6,7 @@
 
 ## Background
 
-Financial institutions (both MSBs and traditional Banks) are required to collect personally identifiable information and verify the identity of their customers before allowing the customer to transact. In some unique cases, customer verification is not required for transactions under a certain dollar threshold, but this does not specifically address those use cases. We also highly recommend companies consider selective disclosure or zero-knowledge proof techniques to further enhance user privacy.
+Financial institutions (both MSBs and traditional Banks) are required to collect personally identifiable information and verify the identity of their customers before allowing the customer to transact. In some unique cases, customer verification is not required for transactions under a certain dollar threshold, but this does not specifically address those use cases. We also highly recommend companies consider **selective disclosure** or **zero-knowledge proof** techniques to further enhance user privacy.
 
 
 ## Purpose
