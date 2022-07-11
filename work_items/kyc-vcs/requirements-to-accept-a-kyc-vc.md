@@ -168,7 +168,7 @@ Data fields should include:
    </td>
    <td>Refer to <a href="https://schema.org/Person">Person Schema</a>
 <p>
-“123-45-6789” This can include an SSN or ITIN (in the US), National ID number (in Canada), National ID Card number, or other government issued identity number. 
+“123-45-6789” This can include an SSN or ITIN (in the US), National ID number (in Canada), or other government issued identity number. 
    </td>
   </tr>
   <tr>
@@ -320,7 +320,7 @@ Such KYC Credentials may be formed as follows:
  - For simplicity, we may want to start with more simple credentials which will be easier to digest and accept.
  - KYC information is constant, unless you change your name the information does not change. However, identity documents and account statements have expiration dates and need to be revoked and reissued on a regular basis. Separating them into separate credentials means one can be revoked when it is no longer valid while the other can remain intact.
  - By separating out the information in these credentials, users can limit the information that they share with others. For example, progressive onboarding is a common practice in the US, some companies may require only the collection of certain information to start transacting, and later request a photo ID or source of funds validation when the transaction volume reaches a certain threshold. This segregation allows the user to share only the information required, or to share more than one credential when more information is needed up front.
-
+4. Standardized responses for fields are preferable to ensure standardization and to allow for easier storage and data formatting. Otherwise, each Verifier will need to map possible data fields to their own internal databases (to be fair this will need to be done anyway, but at least it will be a one time exercise. Please review and provide input on the possible responses for any fields that do. not have a standard schema.
 ### 3. Identity Verification Evidence Vocabulary
 
 In order for the KYC Verifiable Credential to be accepted by most financial institutions, it needs to be verified using a standard method that is recognized by others. The following table outlines the information that should be included in order to provide evidence of identity verification (regardless of whether the documentary or non-documentary method is used). It is noted that the verification requirements differ by country and are more prescriptive in certain countries. Some countries may also require more than one method of verification (such as in Canada).
@@ -377,10 +377,10 @@ In order for the KYC Verifiable Credential to be accepted by most financial inst
 
 #### Additional Considerations
 
-4. We may want to consider all possible sources for document verification even if they are atypical such as: social security card, utility bill, or birth certificate for example.
-5. It is common for companies to compare KYC information to the information on an ID, this includes full name, date of birth and address. Therefore, we may want to consider how to replicate this process with verifiable credentials. To some extent this will be covered in the “Match Result”.
+5. We may want to consider all possible sources for document verification even if they are atypical such as: social security card, utility bill, or birth certificate for example.
+6. It is common for companies to compare KYC information to the information on an ID, this includes full name, date of birth and address. Therefore, we may want to consider how to replicate this process with verifiable credentials. To some extent this will be covered in the “Match Result”.
 
-6. Companies also store a copy of the photo ID and/or the personal data from the ID, through OCR technology, at field level. This typically includes: Full name, Date of Birth, ID Type, ID Number, ID Country and address (if applicable). Therefore, we may want to consider including the personal information on the identity document within the verifiable credential evidence. 
+7. Companies also store a copy of the photo ID and/or the personal data from the ID, through OCR technology, at field level. This typically includes: Full name, Date of Birth, ID Type, ID Number, ID Country and address (if applicable). Therefore, we may want to consider including the personal information on the identity document within the verifiable credential evidence. 
 
 To obtain the evidence that the KYC Verifiable Credential was verified, the Financial Institution (or Verifier) will specify the Verification Evidence credential schemas and types they accept via a [Presentation Request](https://identity.foundation/presentation-exchange/#presentation-request).
 
@@ -468,7 +468,7 @@ The Address or Account Verification Evidence will be requested by a Financial In
   </tr>
   <tr>
    <td>Account Balance</td>
-   <td>This is only applicable for certain types of accounts (typically financial accounts) and is important when verifying source of funds or purpose of account information. Need to include local currency type, for example “USD”, “RMB”, or “MXN”.
+   <td>This is only applicable for certain types of accounts (typically financial accounts) and is important when verifying source of funds or purpose of account information. Need to include local currency type, for example “USD”, “RMB”, or “MXN”. Note that for certain types of accounts (such as credit cards) "Available Credit" is a more accurate field name. Consider both field options.
    </td>
   </tr>
     <tr>
@@ -491,8 +491,8 @@ The Address or Account Verification Evidence will be requested by a Financial In
 
 #### Additional Considerations 
 
-7. Regulatory requirements and compliance controls may require the collection and storage of the statement, therefore it is important to consider how to comply with this requirement with verifiable credentials. For example, can or should we embed an image of the statement in the credential?
-8. This credential assumes that we use online verification tools and vendors to produce address and account information to meet this regulatory compliance requirement. Please note that currently, many financial institutions require the user to upload a copy of a physical statement to comply with this requirement. Online account statements may provide a better user experience and more accurate and up-to-date account level information.
+8. Regulatory requirements and compliance controls may require the collection and storage of the statement, therefore it is important to consider how to comply with this requirement with verifiable credentials. For example, can or should we embed an image of the statement in the credential?
+9. This credential assumes that we use online verification tools and vendors to produce address and account information to meet this regulatory compliance requirement. Please note that currently, many financial institutions require the user to upload a copy of a physical statement to comply with this requirement. Online account statements may provide a better user experience and more accurate and up-to-date account level information.
 
 To obtain the evidence that the KYC Verifiable Credential was verified, the Financial Institution (or Verifier) will  specify the Address/Account Verification Evidence.
 
