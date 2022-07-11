@@ -116,44 +116,36 @@ The KYC Credential for a global customer will include some or all of the followi
 
 <table>
   <tr>
-   <td><strong>Vocabulary</strong>
-   </td>
-   <td><strong>Field Description & References</strong>
-   </td>
+   <td><strong>Vocabulary</strong></td>
+   <td><strong>Field Description & References</strong></td>
   </tr>
   <tr>
-   <td>Family Name 
-   </td>
+   <td>Family Name</td>
    <td>Refer to <a href="https://schema.org/Person">Person Schema</a>
 <p>
 In the USA, the Family Name is the <strong>Last Name</strong> of a Person
    </td>
   </tr>
   <tr>
-   <td>Given Name
-   </td>
+   <td>Given Name</td>
    <td>Refer to <a href="https://schema.org/Person">Person Schema</a>
 <p>
 In the USA, the Given Name is the <strong>First Name</strong> of a Person
    </td>
   </tr>
   <tr>
-   <td>Additional Name
-   </td>
+   <td>Additional Name</td>
    <td>Refer to <a href="https://schema.org/Person">Person Schema</a>
 <p>
 This can be used to include <strong>Middle Name</strong> or left blank or n/a
    </td>
   </tr>
   <tr>
-   <td>Birth Date (DOB)
-   </td>
-   <td>Universal Date Format (<a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>): YYYY/MM/DD
-   </td>
+   <td>Birth Date (DOB)</td>
+   <td>Universal Date Format (<a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>): YYYY/MM/DD</td>
   </tr>
   <tr>
-   <td>Postal Address 
-   </td>
+   <td>Postal Address </td>
    <td>Refer to <a href="https://schema.org/PostalAddress">Postal Address Schema</a>
 <p>
 Data fields should include: 
@@ -180,99 +172,74 @@ Data fields should include:
    </td>
   </tr>
   <tr>
-   <td>Nationality
-   </td>
+   <td>Nationality</td>
    <td>Refer to <a href="https://schema.org/Person">Person Schema</a>
 <p>
 Nationality of the Person, Country using the <a href="https://www.iso.org/iso-3166-country-codes.html">ISO</a> 3 Alpha Character country abbreviation
    </td>
   </tr>
   <tr>
-   <td>Gender
-   </td>
+   <td>Gender</td>
    <td>This is not typically required in certain countries due to gender descrimination (UDAAP for example), but is required in Asia and other parts of the world. 
 <p>
 <strong>Note:</strong> While https://schema.org/Male and https://schema.org/Female may be used, text strings are also acceptable for people who do not identify as a binary gender.
    </td>
   </tr>
   <tr>
-   <td>Account Type
-   </td>
+   <td>Account Type</td>
    <td>We may need this field to determine the type of account being opened or n/a if no account is being opened and this is a one-off transaction.
 <p>
 We can use Schema.org references for <a href="https://schema.org/docs/financial.html">financial extension hierarchy</a> under FinancialProduct Service, but this does not cover all different account types possible.
    </td>
   </tr>
   <tr>
-   <td>Purpose of Account
-   </td>
+   <td>Purpose of Account</td>
    <td>Standardize possible responses to include:
 <ul>
-
 <li>deposit,
-
 <li>checking,
-
 <li>savings,
-
 <li>investing,
-
 <li>sending/receiving money,
-
 <li>currency conversion,
-
 <li>cryptocurrency trading
 </li>
 </ul>
    </td>
   </tr>
   <tr>
-   <td>Occupation
-   </td>
+   <td>Occupation</td>
    <td>Suggest we separate this field into it's own employment verifiable credential. Refer to considerations for more information. Alternatively, we can use the <a href="https://isco-ilo.netlify.app/en/isco-08/">ISCO-08</a> International Standard Classification of Occupations either at the sun-major group or minor group level to reduce the possible values for this field
 <p>
 <span style="text-decoration:underline;">Example of ISCO-08:</span>
 <p>
-
 
 <img src="assets/isco-08-example.png" alt="ISCO 08 Example" title="ISCO 08 Example">
 
    </td>
   </tr>
   <tr>
-   <td>Employer Name (“worskfor” in Schema.org)
-   </td>
-   <td>Free text field. Note: this is only required by certain financial institutions and can be hard to validate. Therefore, suggest we separate out in an employment specific credential with the data field above.
-   </td>
+   <td>Employer Name (“worksFor” on Schema.org)</td>
+   <td>Free text field. Note: this is only required by certain financial institutions and can be hard to validate. Therefore, suggest we separate out in an employment specific credential with the data field above.</td>
   </tr>
   <tr>
-   <td>Source of Funds/Wealth
-   </td>
+   <td>Source of Funds/Wealth</td>
    <td>Standardize possible responses include:
 <ul>
-
 <li>employment,
-
 <li>self-employment, 
-
 <li>investment, 
-
 <li>savings, 
-
 <li>retirement, 
-
 <li>gift/inheritance, or 
-
 <li>other (which must come with an explanation in free text)
 </li>
 </ul>
    </td>
   </tr>
   <tr>
-   <td>Account Activity
-   </td>
-   <td>Free text field. Expected transaction amount or volume information is typically asked to assess risk and comply with regulatory obligations.
-   </td>
+   <td>Account Activity</td>
+   <td>Free text field. Expected transaction amount or volume information is typically asked to assess risk and comply with regulatory obligations.</td>
   </tr>
 </table>
 
@@ -361,70 +328,49 @@ In order for the KYC Verifiable Credential to be accepted by most financial inst
 
 <table>
   <tr>
-   <td><strong>Vocabulary</strong>
-   </td>
-   <td><strong>Field Description & References</strong>
-   </td>
+   <td><strong>Vocabulary</strong></td>
+   <td><strong>Field Description & References</strong></td>
   </tr>
   <tr>
-   <td>Method:
-   </td>
-   <td>Documentary, non-documentary
-   </td>
+   <td>Method</td>
+   <td>Documentary, non-documentary</td>
   </tr>
   <tr>
-   <td>Source:
-   </td>
-   <td>Photo ID, public records, official document, other document (<em>we need to determine the full list of acceptable documents</em>), note that this field is a high level description of the source, the document type is included below
-   </td>
+   <td>Source</td>
+   <td>Photo ID, public records, official document, other document (<em>we need to determine the full list of acceptable documents</em>), note that this field is a high level description of the source, the document type is included below</td>
   </tr>
   <tr>
-   <td>Match Result:
-   </td>
-   <td>Full match (all data elements matched), partial match (3 out of 4 elements matched), match with issues (2 out of 4 elements matched), unmatched <em>(the issuer should not issue a VC based on an unmatched result)</em>
-   </td>
+   <td>Match Result</td>
+   <td>Full match (all data elements matched), partial match (3 out of 4 elements matched), match with issues (2 out of 4 elements matched), unmatched <em>(the issuer should not issue a VC based on an unmatched result)</em></td>
   </tr>
   <tr>
-   <td>Unmatched Data:
-   </td>
-   <td>Name, date of birth, address, TaxID or ID Number <em>(could be one or many)</em>. It is important to provide information on unmatched data, this does not make the VC invalid, but rather demonstrates the quality of the verification process
-   </td>
+   <td>Unmatched Data</td>
+   <td>Name, date of birth, address, TaxID or ID Number <em>(could be one or many)</em>. It is important to provide information on unmatched data, this does not make the VC invalid, but rather demonstrates the quality of the verification process</td>
   </tr>
   <tr>
-   <td>Verifier Name:
-   </td>
-   <td>Free text (examples Jumio, Onfido, Prove, etc.) suggest using the name here instead of a DID so that the Verifier does not need to resolve the DID information
-   </td>
+   <td>Verifier Name</td>
+   <td>Free text (examples Jumio, Onfido, Prove, etc.) suggest using the name here instead of a DID so that the Verifier does not need to resolve the DID information</td>
   </tr>
   <tr>
-   <td>Document Type:
-   </td>
-   <td>Drivers license, passport, permanent resident card, voter registration card, government ID, military ID, state ID card, n/a (for non documentary)
-   </td>
+   <td>Document Type</td>
+   <td>Drivers license, passport, permanent resident card, voter registration card, government ID, military ID, state ID card, n/a (for non documentary)</td>
   </tr>
   <tr>
-   <td>Issuing State/Province:
-   </td>
-   <td>Full name of state or province or n/a if not applicable
-   </td>
+   <td>Issuing State/Province</td>
+   <td>Full name of state or province or n/a if not applicable</td>
   </tr>
   <tr>
-   <td>Issuing Country:
-   </td>
+   <td>Issuing Country</td>
    <td>Use the <a href="https://www.iso.org/iso-3166-country-codes.html">ISO</a> country abbreviation or full country name or n/a
    </td>
   </tr>
   <tr>
-   <td>ID Number:
-   </td>
-   <td>Document ID number, format will depend on ID type and country
-   </td>
+   <td>ID Number</td>
+   <td>Document ID number, format will depend on ID type and country</td>
   </tr>
   <tr>
-   <td>Expiry Date:
-   </td>
-   <td>Universal Date Format (<a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>): YYYY/MM/DD (do we want to allow n/a?). Photo ID documents should usually have an expiry, but other documents such as birth certificates, utility bills, etc. will not)
-   </td>
+   <td>Expiry Date</td>
+   <td>Universal Date Format (<a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>): YYYY/MM/DD (do we want to allow n/a?). Photo ID documents should usually have an expiry, but other documents such as birth certificates, utility bills, etc. will not)</td>
   </tr>
 </table>
 
@@ -497,51 +443,41 @@ The Address or Account Verification Evidence will be requested by a Financial In
 
 <table>
   <tr>
-   <td>
-<strong>Vocabulary</strong>
-   </td>
-   <td><strong>Field Description & References</strong>
-   </td>
+   <td><strong>Vocabulary</strong></td>
+   <td><strong>Field Description & References</strong></td>
   </tr>
   <tr>
-   <td>Statement Type:
-   </td>
+   <td>Statement Type</td>
    <td>Bank statement, brokerage statement, utility bill, phone bill, trading account statement, custodial account, other (with free text field to describe the document)
    </td>
   </tr>
   <tr>
-   <td>Statement Date:
-   </td>
+   <td>Statement Date</td>
    <td>Universal Date Format (<a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>): YYYY/MM/DD. The document is usually only valid if issued within the last 3 or 6 months (depends on the requirements).
    </td>
   </tr>
   <tr>
-   <td>Company Name:
-   </td>
+   <td>Company Name</td>
    <td>Free text field to provide the name of the company that issued the statement. For example: “AT&T”, “HSBC Bank”, “Coinbase”, etc.
    </td>
   </tr>
   <tr>
-   <td>Account Number:
-   </td>
+   <td>Account Number</td>
    <td>Allow for multiple formats and n/a or blank if not applicable
    </td>
   </tr>
   <tr>
-   <td>Account Balance:
-   </td>
+   <td>Account Balance</td>
    <td>This is only applicable for certain types of accounts (typically financial accounts) and is important when verifying source of funds or purpose of account information. Need to include local currency type, for example “USD”, “RMB”, or “MXN”.
    </td>
   </tr>
   <tr>
-   <td>Customer Name:
-   </td>
+   <td>Customer Name</td>
    <td>Full name of the customer on the account, can include both names when it is a joint account. This is necessary to confirm the statement is for the individual named in the KYC credential.
    </td>
   </tr>
   <tr>
-   <td>Customer Address:
-   </td>
+   <td>Customer Address</td>
    <td>Option to use a single data field to document the full address (such as “postalAddress”) or break out at field level per the <a href="https://schema.org/PostalAddress">Postal Address Schema</a>. This is necessary to compare to the KYC address.
    </td>
   </tr>
