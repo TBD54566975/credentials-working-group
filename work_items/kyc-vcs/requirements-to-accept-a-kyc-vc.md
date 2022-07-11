@@ -22,8 +22,11 @@ This deliverable attempts to define the **_Vocabulary_** for KYC Verifiable Cred
 
 **<span style="text-decoration:underline;">Issuers:</span>** Any entity with the qualifications to issue a credential. This can include financial institutions, identity verification vendors, AML compliance vendors and others.
 
-**<span style="text-decoration:underline;">Trust List:</span>** Verifiers can maintain a Trust List of Issuers who they trust, either based on certain public information (regulated entities for example) or who they have validated are qualified to issue certain verifiable credentials.
+**<span style="text-decoration:underline;">Trust Establishment Document:</span>** Verifiers can maintain a Trust Establishment Document of Issuers whom they trust for which credentials, either based on certain public information (regulated entities for example) or who they have validated are qualified to issue certain verifiable credentials.
 
+**<span style="text-decoration:underline;">Schemas:</span>** [JSON Schema](https://json-schema.org/), [JSON Linked Data](https://json-ld.org/), or [Schema.org](https://schema.org/Person) documents that proivde semantic meaning and field-level validation to credentials.
+
+**<span style="text-decoration:underline;">Presentation Exchange:</span>** [A protocol by which](https://identity.foundation/presentation-exchange/) _Verifiers_ can request _Credentials_ from _Holders_ via _Presentation Requests_, and by which _Holders_ can submit responses _Presentation Requests_ to _Verifiers_ via _Presentation Submissions_.
 
 ## Acceptance Criteria
 
@@ -341,7 +344,9 @@ Such KYC Credentials may be formed as follows:
 ```
 
 **Note:** EU and UK AML regulations require both a Photo ID and address verification, so to meet compliance requirements in these jurisdictions the verifiable credential will require the additional evidence outlined in Section 3 and 4 below to be considered valid.
-**Additional Considerations**
+
+#### Additional Considerations
+
 1. The employment information requested at onboarding (or during EDD) is typically not easily validated. Compliance teams use this information to either investigate an account or validate the account activity. Collecting the information alone does not add significant value, rather if this information was contained within an employment credential that was issued by a qualified issuer, such as Workday or your employer, the information would be more accurate, could be updated or refreshed when employment information changes and able to be trusted and relied on. Therefore, recommend that we remove this field from the KYC credential and focus on enabling a separate employment credential issued by a qualified organization.
 2. Even for non documentary verification (when there is no document expiration date), we can set standard expiry dates within the credential. For example,  compliance standards dictate that KYC should be refreshed every 1-3 years based on risk.
 3. We are recommending that initially we separate out the Identity and Address Verification Evidence from the KYC Verifiable Credential for several reasons:
@@ -424,7 +429,8 @@ In order for the KYC Verifiable Credential to be accepted by most financial inst
 </table>
 
 
-**Additional Considerations:** 
+#### Additional Considerations
+
 4. We may want to consider all possible sources for document verification even if they are atypical such as: social security card, utility bill, or birth certificate for example.
 5. It is common for companies to compare KYC information to the information on an ID, this includes full name, date of birth and address. Therefore, we may want to consider how to replicate this process with verifiable credentials. To some extent this will be covered in the “Match Result”.
 
@@ -479,7 +485,7 @@ Such KYC Evidence may be associated with KYC Verifiable Credentilas **OR** provi
 
 ```
 
-4. Address Verification Evidence
+### 4. Address Verification Evidence
 
 Address verification is a regulatory requirement to onboard a customer in certain jurisdictions including in the UK, Europe and parts of Asia. This same type of credential can also be used to demonstrate proof of “Purpose Of Account”, if a bank or other financial account statement is used to validate a physical address.
 
@@ -542,7 +548,8 @@ The Address or Account Verification Evidence will be requested by a Financial In
 </table>
 
 
-**Additional Considerations:** 
+#### Additional Considerations 
+
 7. Regulatory requirements and compliance controls may require the collection and storage of the statement, therefore it is important to consider how to comply with this requirement with verifiable credentials. For example, can or should we embed an image of the statement in the credential?
 8. This credential assumes that we use online verification tools and vendors to produce address and account information to meet this regulatory compliance requirement. Please note that currently, many financial institutions require the user to upload a copy of a physical statement to comply with this requirement. Online account statements may provide a better user experience and more accurate and up-to-date account level information.
 
@@ -577,9 +584,6 @@ The response is:
    }
 }
 ```
-
-This credential assumes that we use online verification tools and vendors to produce address and account information to meet this regulatory compliance requirement. Please note that currently, many financial institutions require the user to upload a copy of a physical statement to comply with this requirement. Online account statements may provide a better user experience and more accurate and up-to-date account level information.
-
 
 ### 5. Sanctions Screening Vocabulary
 
