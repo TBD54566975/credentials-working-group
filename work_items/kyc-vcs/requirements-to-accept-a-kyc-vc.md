@@ -27,18 +27,18 @@ This deliverable attempts to define the **_Vocabulary_** for KYC Verifiable Cred
 
 ## Acceptance Criteria
 
-In order for DIDs and VCs to be adopted by financial institutions, they need to comply with all applicable laws and regulations (specifically BSA AML/CIP/KYC requirements). Therefore, the credential must:
+In order for DIDs and VCs to be adopted by financial institutions, they need to comply with all applicable laws and regulations (specifically BSA AML and KYC requirements). Therefore, the credential must:
 
 
 1. **Standard DID Vocabulary:** The credential must include certain basic information to be accepted and recognized by the verifier, including information about the issuer, issuance date and time stamp, the DID reference, the schema backing the credential, and the digital signature (or proof). It will also contain the **revocation controls** and **terms of use**, which we will address in a future work item due to complexity.
 
-2. **CIP/KYC Vocabulary:** Include information that is required to be **_collected and verified_** to comply with applicable financial regulations. _In the USA, regulations require the collection of the full name, date of birth, residential address and SSN (for individuals). In Europe and the UK that also includes Nationality, Proof of Address and certain enhanced due diligence information such as employment information and purpose of account._
+2. **CIP/KYC Vocabulary:** Include information that is required to be **_collected and verified_** to comply with applicable financial regulations.  In the USA, regulations require the collection of the full name, date of birth, residential address and SSN (for individuals). In Europe and the UK that also includes Nationality, Proof of Address and certain enhanced due diligence information such as employment information and purpose of account.
 
 3. **Identity Verification Evidence:** Provide **_evidence_** of identity verification including: the method for verifying identity (i.e. documentary vs. non documentary), the source of the verification (i.e. ID type or public records), information about what was used to verify (i.e. name matched DOB and SSN), any information that was unmatched (i.e. address did not match), and the name of the third party that performed the verification. 
 
     In addition, if the verification method is “documentary”, then the VC must include information about the document used to verify (usually a photo ID) such as: the document type, issuing state and country, and the document expiry date.
 
-4. **Address Verification Evidence:** Financial transactions in the UK, Europe and other countries outside the USA requires a verification of an address in addition to identity verification (above). Typical documents used to verify an address are a utility bill, bank statement, or telecom account statement. Address verification can also be used to verify an account, such as a bank account or exchange account and can be used for the purpose of validating source of funds, a common enhanced due diligence requirement globally.
+4. **Address or Account Verification Evidence:** Financial transactions in the UK, Europe and other countries outside the USA requires a verification of an address in addition to identity verification (above). Typical documents used to verify an address are a utility bill, bank statement, or telecom account statement. Address verification can also be used to verify an account, such as a bank account or exchange account and can be used for the purpose of validating source of funds, a common enhanced due diligence requirement globally.
 
 5. **Sanctions Screening:** Certify that the individual is not from a sanctioned country or on the appropriate sanctions lists (note that each country has its own sanctions lists, it is not feasible to compare the customer against ALL global lists, so these VCs may need to be regional).
 
@@ -206,7 +206,7 @@ We can use Schema.org references for <a href="https://schema.org/docs/financial.
    <td>Standardize possible responses to include:
 <ul>
 
-<li>deposits,
+<li>deposit,
 
 <li>checking,
 
@@ -224,9 +224,9 @@ We can use Schema.org references for <a href="https://schema.org/docs/financial.
    </td>
   </tr>
   <tr>
-   <td>Occupation - occupationalCategory
+   <td>Occupation
    </td>
-   <td>Suggest we use the <a href="https://isco-ilo.netlify.app/en/isco-08/">ISCO-08</a> International Standard Classification of Occupations either at the sun-major group or minor group level to reduce the possible values
+   <td>Suggest we separate this field into it's own employment verifiable credential. Refer to considerations for more information. Alternatively, we can use the <a href="https://isco-ilo.netlify.app/en/isco-08/">ISCO-08</a> International Standard Classification of Occupations either at the sun-major group or minor group level to reduce the possible values for this field
 <p>
 <span style="text-decoration:underline;">Example of ISCO-08:</span>
 <p>
@@ -239,7 +239,7 @@ We can use Schema.org references for <a href="https://schema.org/docs/financial.
   <tr>
    <td>Employer Name (“worskfor” in Schema.org)
    </td>
-   <td>Free text field. Note: this is only required by certain financial institutions and can be hard to validate.
+   <td>Free text field. Note: this is only required by certain financial institutions and can be hard to validate. Therefore, suggest we separate out in an employment specific credential with the data field above.
    </td>
   </tr>
   <tr>
@@ -341,7 +341,13 @@ Such KYC Credentials may be formed as follows:
 ```
 
 **Note:** EU and UK AML regulations require both a Photo ID and address verification, so to meet compliance requirements in these jurisdictions the verifiable credential will require the additional evidence outlined in Section 3 and 4 below to be considered valid.
-
+**Additional Considerations**
+1. The employment information requested at onboarding (or during EDD) is typically not easily validated. Compliance teams use this information to either investigate an account or validate the account activity. Collecting the information alone does not add significant value, rather if this information was contained within an employment credential that was issued by a qualified issuer, such as Workday or your employer, the information would be more accurate, could be updated or refreshed when employment information changes and able to be trusted and relied on. Therefore, recommend that we remove this field from the KYC credential and focus on enabling a separate employment credential issued by a qualified organization.
+2. Even for non documentary verification (when there is no document expiration date), we can set standard expiry dates within the credential. For example,  compliance standards dictate that KYC should be refreshed every 1-3 years based on risk.
+3. We are recommending that initially we separate out the Identity and Address Verification Evidence from the KYC Verifiable Credential for several reasons:
+ - For simplicity, we may want to start with more simple credentials which will be easier to digest and accept.
+ - KYC information is constant, unless you change your name the information does not change. However, identity documents and account statements have expiration dates and need to be revoked and reissued on a regular basis. Separating them into separate credentials means one can be revoked when it is no longer valid while the other can remain intact.
+ - By separating out the information in these credentials, users can limit the information that they share with others. For example, progressive onboarding is a common practice in the US, some companies may require only the collection of certain information to start transacting, and later request a photo ID or source of funds validation when the transaction volume reaches a certain threshold. This segregation allows the user to share only the information required, or to share more than one credential when more information is needed up front.
 
 ### 3. Identity Verification Evidence Vocabulary
 
@@ -382,7 +388,7 @@ In order for the KYC Verifiable Credential to be accepted by most financial inst
   <tr>
    <td>Verifier Name:
    </td>
-   <td>Free text (examples Jumio, Onfido, Prove, etc.)
+   <td>Free text (examples Jumio, Onfido, Prove, etc.) suggest using the name here instead of a DID so that the Verifier does not need to resolve the DID information
    </td>
   </tr>
   <tr>
@@ -418,9 +424,11 @@ In order for the KYC Verifiable Credential to be accepted by most financial inst
 </table>
 
 
-**Consideration 1:** It is common for companies to compare KYC information to the information on an ID, this includes full name, date of birth and address. Therefore, we may want to consider how to replicate this process with verifiable credentials. To some extent this will be covered in the “Match Result”.
+**Additional Considerations:** 
+4. We may want to consider all possible sources for document verification even if they are atypical such as: social security card, utility bill, or birth certificate for example.
+5. It is common for companies to compare KYC information to the information on an ID, this includes full name, date of birth and address. Therefore, we may want to consider how to replicate this process with verifiable credentials. To some extent this will be covered in the “Match Result”.
 
-**Consideration 2:** Companies also store a copy of the photo ID and/or the personal data from the ID, through OCR technology, at field level. This typically includes: Full name, Date of Birth, ID Type, ID Number, ID Country and address (if applicable). Therefore, we may want to consider including the personal information on the identity document within the verifiable credential evidence. 
+6. Companies also store a copy of the photo ID and/or the personal data from the ID, through OCR technology, at field level. This typically includes: Full name, Date of Birth, ID Type, ID Number, ID Country and address (if applicable). Therefore, we may want to consider including the personal information on the identity document within the verifiable credential evidence. 
 
 To obtain the evidence that the KYC Verifiable Credential was verified, the Financial Institution (or Verifier) will specify the Verification Evidence credential schemas and types they accept via a [Presentation Request](https://identity.foundation/presentation-exchange/#presentation-request).
 
@@ -534,7 +542,9 @@ The Address or Account Verification Evidence will be requested by a Financial In
 </table>
 
 
-**Consideration 3:** Regulatory requirements and compliance controls may require the collection and storage of the statement, therefore it is important to consider how to comply with this requirement with verifiable credentials. For example, can or should we embed an image of the statement in the credential?
+**Additional Considerations:** 
+7. Regulatory requirements and compliance controls may require the collection and storage of the statement, therefore it is important to consider how to comply with this requirement with verifiable credentials. For example, can or should we embed an image of the statement in the credential?
+8. This credential assumes that we use online verification tools and vendors to produce address and account information to meet this regulatory compliance requirement. Please note that currently, many financial institutions require the user to upload a copy of a physical statement to comply with this requirement. Online account statements may provide a better user experience and more accurate and up-to-date account level information.
 
 To obtain the evidence that the KYC Verifiable Credential was verified, the Financial Institution (or Verifier) will  specify the Address/Account Verification Evidence.
 
