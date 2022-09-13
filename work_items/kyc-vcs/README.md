@@ -6,7 +6,7 @@ Home for the KYC Credentials work item.
 
 ## Documents
 
-_coming soon..._
+- [Requirements to Accept a KYC VC](requirements-to-accept-a-kyc-vc.md)
 
 ## Meeting Notes
 
