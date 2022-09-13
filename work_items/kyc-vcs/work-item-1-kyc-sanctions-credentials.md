@@ -1,8 +1,6 @@
-# **Verifiable Credentials #2: **
+# Verifiable Credentials #2
 
-## **Universal Sanctions Verifiable Credential Design Specifications**
-
-
+## Universal Sanctions Verifiable Credential Design Specifications
 
 ### Considerations and Assumptions: 
 1. This initial Universal Sanctions Credential is focused on individuals and does not include checks against sanctioned entities. Additional Sanctions VC design specifications will be developed at a later stage for entities or vessels.
@@ -17,7 +15,7 @@
 
 6. Including the hundreds of global sanctions screening lists introduces complexity and variability that may lead to too many versions of the VC and therefore limits the acceptance of a Universal Sanctions Credential. Instead, Issuers should leverage the **Open Standard for Sanctions Screening**, which will include common sanctions lists focused on countries with the most strict sanctions enforcement controls, including the USA, Europe, UK, Canada, and Australia. 
 
-*The Sanctions lists selected for the Open Standard are intended to provide broad global coverage and usage. An Issuer can choose to screen against additional or local lists per their internal controls or regulatory obligations. However, it is important to note that minimizing the lists screened against, including setting minimal standards for list data quality will increase automation and reduce manual review to clear potential matches.*
+    *The Sanctions lists selected for the Open Standard are intended to provide broad global coverage and usage. An Issuer can choose to screen against additional or local lists per their internal controls or regulatory obligations. However, it is important to note that minimizing the lists screened against, including setting minimal standards for list data quality will increase automation and reduce manual review to clear potential matches.*
 
 7. For certain financial transactions, Sanctions Credentials may be presented together with a KYC Credential before transacting. Therefore, Issuers may choose to issue more than one credential when they are performing multiple compliance checks for a user at the same time. We anticipate that there is also a valid use case for sanctions credentials alone, without KYC. For unregulated transactions or activity a sanctions credential may be presented first and the additional credential requirements requested at a later date or never. 
 
@@ -51,18 +49,18 @@ The vocabulary for these inputs mirrors the [KYC VC](https://github.com/TBD54566
 
 | Vocabulary | Field Description | 
 | -------- | -------- | 
-| CredentialType:     | Universal Sanctions Credential    | 
-| SubType:    | Individual    | 
-| Sanctions Result:     | match, no-match, undetermined (note that an undetermined or no-match result is unlikely to be accepted by the user)     | 
-| Family Name:     | Refer to Person Schema. In the USA, the Family Name is the Last Name of a Person 
-| Given Name:     | Refer to Person Schema. In the USA, the Given Name is the First Name of a Person    | 
-| Additional Name:     | Refer to Person Schema. This can be used to include Middle Name, AKA or Alias or left blank or n/a     | 
-| Date of Birth (DOB):     | BirthDate using the Universal Date Format (ISO 8601): YYYY/MM/DD    | 
-| Sanctions Description:    | Includes any details about the match including the full name and alias’ of the matched individual. The description contents and format will depend on the list. There may also be multiple matches.Consider aligning with existing data formats such as Swift MT103.  This field will be n/a (if the result is “no match” or “undetermined”)    | 
-| Effective Date & Time:     | YYYY/MM/DD, HH/MM/SS - this should be the most recent date and time the sanctions check was performed    | 
-| Expiration Date & Time:     | YYYY,MM,DD, HH/MM/SS - We think it is unlikely that this field will be populated by the Issuer, as sanctions credentials can be revoked and reissued. However expiration is a standard VC field.     | 
-| Verifier Name:     | Name or ideally the DID reference of the sanctions vendor who performs the check      | 
-| IP Geolocation:    | Consider whether this should be an address, location or both. The credential could be enriched with geolocation data from third parties if they are used by the Issuer.  Note that the accuracy of IP geolocation data varies significantly and is also dependent on whether the user is masking their IP.    | 
+| CredentialType     | Universal Sanctions Credential    | 
+| SubType    | Individual    | 
+| Sanctions Result     | match, no-match, undetermined (note that an undetermined or no-match result is unlikely to be accepted by the user)     | 
+| Family Name     | Refer to Person Schema. In the USA, the Family Name is the Last Name of a Person 
+| Given Name     | Refer to Person Schema. In the USA, the Given Name is the First Name of a Person    | 
+| Additional Name     | Refer to Person Schema. This can be used to include Middle Name, AKA or Alias or left blank or n/a     | 
+| Date of Birth (DOB)     | BirthDate using the Universal Date Format (ISO 8601): YYYY/MM/DD    | 
+| Sanctions Description    | Includes any details about the match including the full name and alias’ of the matched individual. The description contents and format will depend on the list. There may also be multiple matches.Consider aligning with existing data formats such as Swift MT103.  This field will be n/a (if the result is “no match” or “undetermined”)    | 
+| Effective Date & Time     | YYYY/MM/DD, HH/MM/SS - this should be the most recent date and time the sanctions check was performed    | 
+| Expiration Date & Time     | YYYY,MM,DD, HH/MM/SS - We think it is unlikely that this field will be populated by the Issuer, as sanctions credentials can be revoked and reissued. However expiration is a standard VC field.     | 
+| Verifier Name     | Name or ideally the DID reference of the sanctions vendor who performs the check      | 
+| IP Geolocation    | Consider whether this should be an address, location or both. The credential could be enriched with geolocation data from third parties if they are used by the Issuer.  Note that the accuracy of IP geolocation data varies significantly and is also dependent on whether the user is masking their IP.    | 
 
 **Person Schema Reference:** https://schema.org/Person
 
@@ -71,53 +69,66 @@ If the Sanctions result is “no match” or “undetermined” then the **Sanct
 ### Example #1 (ZKP presentation):
 As you can see in the result when the user selects ZKP Presentation, only the sanctions result information is shared with the verifier, and the underlying personal data is not disclosed. 
 
-**// specify the “Sanctions Check”**
-
-“Type”: “VerifiableCredential”
-“Issuer”: “did:example:BlockInc”,
-“IssanceDate” "2010-01-01T00:00:00Z",
-“CredentialSubject”: { 
-“Id”: “did:example:1a2b3c4d5e6f7g”,
-{...}
+_// specify the “Sanctions Check”_
+```jsonld=
+{
+    “type”: “VerifiableCredential”
+    “issuer”: “did:example:BlockInc”,
+    “issanceDate” "2010-01-01T00:00:00Z",
+    “credentialSubject”: { 
+    “id”: “did:example:1a2b3c4d5e6f7g”,
+     ...
+    },
+    “proof”: {...}
 }
-“Proof”: {...}
+```
 
-**// specify the contents of the “VerifiableCredential” **
+_// specify the contents of the “VerifiableCredential”_
 
-“credentialType”: “Universal Sanctions Credential”,
-“subType”: “Individual”,
-“sanctionsResult”: “no match”,
-“effectiveDate&Time”: “2022/08/19, 11:03:00”,
-“expirationDate&Time”: “n/a”,
-“verifierName”: “did:example:SanctionsVendor”
-
+```jsonld=
+{
+    “credentialType”: “Universal Sanctions Credential”,
+    “subType”: “Individual”,
+    “sanctionsResult”: “no match”,
+    “effectiveDate”: “2022/08/19, 11:03:00”,
+    “verifierName”: “did:example:SanctionsVendor”
+}
+```
 
 *Refer to the [KYC VC](https://github.com/TBD54566975/credentials-working-group/blob/main/work_items/kyc-vcs/requirements-to-accept-a-kyc-vc.md) for specifications to resolve the Issuer or Verifier DID.*
 
 ### Example #2 (normal presentation):
 
-**// specify the “Sanctions Check”**
-“Type”: “VerifiableCredential”
-“Issuer”: “did:example:BlockInc”,
-“IssanceDate” "2010-01-01T00:00:00Z",
-“CredentialSubject”: { 
-“Id”: “did:example:1a2b3c4d5e6f7g”,
-{...}
+_// specify the “Sanctions Check”_
+
+```jsonld=
+{
+    “type”: “VerifiableCredential”
+    “issuer”: “did:example:BlockInc”,
+    “issanceDate” "2010-01-01T00:00:00Z",
+    “credentialSubject”: { 
+    “id”: “did:example:1a2b3c4d5e6f7g”,
+    ...
+    },
+    “proof”: {...}
 }
-“Proof”: {...}
+```
 
-**// specify the contents of the “VerifiableCredential”** 
+_// specify the contents of the “VerifiableCredential”_
 
-“credentialType”: “Universal Sanctions Credential”
-“subType”: “Individual”
-“sanctionsResult”: “match”,
-“familyName”: “Ali”,
-“givenName”: “Ahmed”,
-“additionalName”: “Mohammed”,
-“birthDate”: “1965/04/25”,
-“sanctionsDescription”: “Ahmed Mohammed Hamed Ali, SDN, SDGT, Citizenship Egypt, Date of Birth	1965	Remarks n/a, Place of Birth Egypt, aka ABDUREHMAN Ahmed Mohamme, aka AHMED Ahmed”,
-“effectiveDate&Time”: “2022/07/22, 15:45:03”,
-“expirationDate&Time”: “2022/07/29, 15:45:03”,
-“verifierName”: “did:example:SanctionsVendor”
-“ipGeolocation”: “Alexandria, Egypt”,
-
+```jsonld=
+{
+    “credentialType”: “Universal Sanctions Credential”,
+    “subType”: “Individual”,
+    “sanctionsResult”: “match”,
+    “familyName”: “Ali”,
+    “givenName”: “Ahmed”,
+    “additionalName”: “Mohammed”,
+    “birthDate”: “1965/04/25”,
+    “sanctionsDescription”: “Ahmed Mohammed Hamed Ali, SDN, SDGT, Citizenship Egypt, Date of Birth	1965	Remarks n/a, Place of Birth Egypt, aka ABDUREHMAN Ahmed Mohamme, aka AHMED Ahmed”,
+    “effectiveDate”: “2022/07/22, 15:45:03”,
+    “expirationDate”: “2022/07/29, 15:45:03”,
+    “verifierName”: “did:example:SanctionsVendor”,
+    “ipGeolocation”: “Alexandria, Egypt”
+}
+```
