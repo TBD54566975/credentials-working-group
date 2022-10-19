@@ -17,7 +17,6 @@
           "type": "string"
         }
       },
-      "required": [],
       "additionalProperties": false
     },
     "account": {
@@ -30,7 +29,6 @@
           "type": "string"
         }
       },
-      "required": [],
       "additionalProperties": false
     },
     "customer": {
@@ -61,14 +59,11 @@
               "type": "string"
             }
           },
-          "required": [],
           "additionalProperties": false
         }
       },
-      "required": [],
       "additionalProperties": false
     }
   },
-  "required": [],
   "additionalProperties": false
 }
