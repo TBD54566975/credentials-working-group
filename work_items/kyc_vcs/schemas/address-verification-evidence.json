@@ -52,7 +52,7 @@
             "addressRegion": {
               "type": "string"
             },
-            "postOfficeBoxNumber": {
+            "postalCode": {
               "type": "string"
             },
             "streetAddress": {
